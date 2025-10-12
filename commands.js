@@ -31,7 +31,7 @@ let markuprules = {
     "__": "u",
     "--": "s",
     "~~": "i",
-    "###": "font style='animation: rainbow 3s infinite;'",
+    "$r$": "font style='animation: rainbow 3s infinite;'",
     "^^": "font size=5",
     "%%": "marquee scrollamount=6",
 }
@@ -60,6 +60,7 @@ module.exports.vpnLocked = false;
 const whitelist = [
 	"https://files.catbox.moe",
 	"https://i.ibb.co",
+	"https://leopard.hosting.pecon.us/",
 ];
 module.exports.whitelist = whitelist;
 setInterval(()=>{module.exports.bancount = 0}, 60000*5)
@@ -208,7 +209,7 @@ module.exports.commands = {
 		if(tobless.level == 0.1){
 			tobless.level = 0;
 			tobless.public.tagged = false;
-      tobless.public.color = "jew";
+      tobless.public.color = "blessed";
 		}
 		else if(tobless.level < 0.1){
       tobless.level = 0.1;
@@ -387,15 +388,15 @@ module.exports.commands = {
 		let tonuke = find(param);
 		if(tonuke == null || tonuke.level >= user.level) return;
 		tonuke.public.color = "floyd";
-		tonuke.public.name = "DIRTY NIGGER";
-		tonuke.public.dispname = "DIRTY NIGGER";
-		tonuke.public.tag = "DIRTY NIGGER";
+		tonuke.public.name = "DIRTY N-WORD";
+		tonuke.public.dispname = "DIRTY N-WORD";
+		tonuke.public.tag = "DIRTY N-WORD";
 		tonuke.public.tagged = true;
 		tonuke.public.muted = true;
 		tonuke.public.locked = true;
 		tonuke.room.emit("update", tonuke.public);
 		tonuke.socket.emit("update_self", {nuked: true, level: tonuke.level, roomowner: tonuke.public.guid == tonuke.room.ownerID})
-		tonuke.room.emit("talk", {guid: tonuke.public.guid, text: "I AM A GAY FAGGOT"});
+		tonuke.room.emit("talk", {guid: tonuke.public.guid, text: "I Am A Fucky Fucky Fucky Fucky"});
 	},
 	poll: (user, param)=>{
     Object.keys(user.room.users).forEach(usr=>{
