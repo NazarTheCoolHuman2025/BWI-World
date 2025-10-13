@@ -1,7 +1,7 @@
 BWI-WORLD Is created by nazar
 
 # Credits
-Izhank216
+Izhank216/Izhan
 
 **Swag Frenzy**/jim megatron
 
