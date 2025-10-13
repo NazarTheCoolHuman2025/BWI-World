@@ -1,7 +1,7 @@
 const fs = require("fs");
 const crypto = require("crypto");
 //Read settings
-const config = JSON.parse(fs.readFileSync("./config/server-settings.json"));
+const config = JSON.parse(fs.readFileSync("./config/settings.json"));
 const jokes = JSON.parse(fs.readFileSync("./config/jokes.json"));
 const facts = JSON.parse(fs.readFileSync("./config/facts.json"));
 const copypastas = JSON.parse(fs.readFileSync("./config/copypastas.json"));
