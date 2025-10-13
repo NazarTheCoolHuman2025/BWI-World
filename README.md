@@ -14,3 +14,11 @@ Rover The Cool Dog
 Luca
 
 MTV Dance
+
+# Steps to set up:
+
+Do `npm install` 
+
+Then do `node index.js`
+
+And then your done!!!! :D
