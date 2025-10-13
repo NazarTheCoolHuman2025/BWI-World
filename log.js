@@ -4,7 +4,7 @@ const path = require('path');
 const winston = require('winston');
 
 // Config path
-const config = ("./config/settings.json");
+const setup = ("./config/settings.json");
 
 // Ensure logs directory exists
 const logDir = path.join(__dirname, 'logs');
@@ -31,10 +31,10 @@ const logger = winston.createLogger({
 // ---------------- Read settings.json ----------------
 let settings = {};
 try {
-  settings = fs.readJsonSync(config);
-  logger.info(`Successfully read settings.json from ${config}`);
+  settings = fs.readJsonSync(setup);
+  logger.info(`Successfully read settings.json from ${setup}`);
 } catch (err) {
-  logger.error(`Failed to read settings.json from ${config}: ${err.message}`);
+  logger.error(`Failed to read settings.json from ${setup}: ${err.message}`);
 }
 
 // ---------------- Process crash handling ----------------
@@ -47,5 +47,5 @@ process.on('unhandledRejection', (reason) => {
   logger.error(`Unhandled Promise Rejection: ${reason}`);
 });
 
-// Export logger, config path, and settings
-module.exports = { logger, config, settings };
+// Export logger, setup path, and settings
+module.exports = { logger, setup, settings };
