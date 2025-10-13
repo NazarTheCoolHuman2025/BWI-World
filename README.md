@@ -22,3 +22,12 @@ Do `npm install`
 Then do `node index.js`
 
 And then your done!!!! :D
+
+# If your using yarn:
+
+Do `yarn install`
+
+Then you can do `node index.js`
+
+Because there is no such as `yarn index.js`
+
