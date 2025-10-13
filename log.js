@@ -6,6 +6,14 @@ const winston = require('winston');
 // Config path
 const config = ("./config/settings.json");
 
+// ---------------- Read settings.json ----------------
+let settings = {};
+try {
+  settings = fs.readJsonSync(config);
+} catch (err) {
+  // Do NOT log anything; just fail silently
+}
+
 // Ensure logs directory exists
 const logDir = path.join(__dirname, 'logs');
 fs.ensureDirSync(logDir);
@@ -38,5 +46,6 @@ process.on('unhandledRejection', (reason) => {
   logger.error(`Unhandled Promise Rejection: ${reason}`);
 });
 
-// Export logger and config path
-module.exports = { logger, config };
+// Export logger, config path, and settings
+module.exports = { logger, config, settings };
+
