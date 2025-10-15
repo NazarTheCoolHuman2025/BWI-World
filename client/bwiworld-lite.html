@@ -3,15 +3,14 @@
 <head>
   <title>BWISOFT: BonziWORLD Lite</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <meta name="description" content="Bwisoft Introduces BonziWORLD Lite, a faster, lightweight BW with core features.">
-  <meta name="keywords" content="BonziBUDDY, BonziWORLD, Chat, Windows XP">
+  <meta name="description" content="Bwisoft Introduces BonziWORLD Lite, a faster, lightweight BW with core features and admin moderation.">
   <meta name="author" content="Nazar, BWI, Izhank216/Izhan, Swag FRENZY/jim megatron">
   <link rel="icon" href="./favicon.png">
-  <link rel="stylesheet" type="text/css" href="https://bonzi.gay/flex.css">
-  <link rel="stylesheet" type="text/css" href="https://bonzi.gay/style.css">
+  <link rel="stylesheet" href="https://bonzi.gay/flex.css">
+  <link rel="stylesheet" href="https://bonzi.gay/style.css">
   <link id="theme" rel="stylesheet" href="./themes/purple.css">
 
-  <!-- Essential scripts only -->
+  <!-- Required core libraries -->
   <script src="./lib/jquery-3.7.1.min.js"></script>
   <script src="./lib/socket.io.js"></script>
   <script src="./lib/speakClient.js"></script>
@@ -20,11 +19,31 @@
   <script src="./script2.js"></script>
 
   <style>
-    @keyframes slide { from{top:0%} to{top:-80%} }
-    @keyframes slideback { from{top:-80%} to{top:0%} }
-    #ec:active { top:0%; }
-    #ec { -webkit-animation-fill-mode:forwards; animation-fill-mode:forwards; }
+    @keyframes slide { from { top: 0% } to { top: -80% } }
+    @keyframes slideback { from { top: -80% } to { top: 0% } }
+    #ec:active { top: 0%; }
+    #ec { -webkit-animation-fill-mode: forwards; animation-fill-mode: forwards; }
     .wrapperoption:hover { background-color: rgba(255,255,255,0.427); }
+
+    /* context menu */
+    #context_menu {
+      display: none;
+      position: absolute;
+      z-index: 9999;
+      background: rgba(0,0,0,0.85);
+      border-radius: 8px;
+      padding: 8px 0;
+      min-width: 150px;
+      font-size: 14px;
+      color: white;
+    }
+    .ctx_option {
+      padding: 6px 14px;
+      cursor: pointer;
+    }
+    .ctx_option:hover {
+      background: rgba(255,255,255,0.1);
+    }
   </style>
 </head>
 <body>
@@ -43,7 +62,7 @@
     </div>
   </div>
 
-  <!-- Content -->
+  <!-- Main -->
   <div id="content" draggable="false">
     <canvas id="bonzicanvas" style="width:100%;height:100%;position:absolute;z-index:-5;"></canvas>
 
@@ -61,11 +80,19 @@
       <span id="room_owner" style="display:none;">You are the owner of this room!</span>
     </div>
 
-    <!-- Simple banner -->
-    <marquee scrollamount="15" id="banner">Welcome to BonziWORLD Lite</marquee>
+    <marquee scrollamount="15" id="banner">Welcome to BonziWORLD Lite - Admin Tools Enabled</marquee>
   </div>
 
-  <!-- Error page -->
+  <!-- Context Menu (Bans & Kicks) -->
+  <div id="context_menu">
+    <div class="ctx_option" id="ctx_speak">Speak</div>
+    <div class="ctx_option" id="ctx_wave">Wave</div>
+    <div class="ctx_option" id="ctx_joke">Tell a Joke</div>
+    <div class="ctx_option" id="ctx_kick">Kick</div>
+    <div class="ctx_option" id="ctx_ban">Ban</div>
+  </div>
+
+  <!-- Error Page -->
   <div id="error_page" style="display:none;">
     <div class="error_message" id="error_disconnect" style="display:none;">
       <img src="./img/error_disconnect.png"><br>
@@ -74,6 +101,34 @@
       <br><br>Room ID - <span id="error_room">NONE</span>
     </div>
   </div>
+
+  <script>
+    // Context menu logic
+    $(function() {
+      let selectedUser = null;
+
+      $(document).on("contextmenu", ".bonzi", function(e) {
+        e.preventDefault();
+        selectedUser = $(this).attr("id");
+        $("#context_menu").css({
+          top: e.pageY + "px",
+          left: e.pageX + "px"
+        }).fadeIn(100);
+      });
+
+      $(document).click(() => $("#context_menu").fadeOut(100));
+
+      $("#ctx_kick").click(() => {
+        if (selectedUser) socket.emit("command", { type: "kick", target: selectedUser });
+        $("#context_menu").fadeOut(100);
+      });
+
+      $("#ctx_ban").click(() => {
+        if (selectedUser) socket.emit("command", { type: "ban", target: selectedUser });
+        $("#context_menu").fadeOut(100);
+      });
+    });
+  </script>
 </body>
 </html>
 
