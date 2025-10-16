@@ -9,3 +9,4 @@ cyan
 orange
 yellow
 white
+rainbow
